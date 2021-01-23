@@ -12,8 +12,8 @@ tags:
 
 请你返回将所有点连接的最小总费用。只有任意两点之间 有且仅有 一条简单路径时，才认为所有点都已连接。
 
-![](http://myblogoss.aimezhao.online/20210119200443.png)
-
+![](https://supers1.oss-cn-hangzhou.aliyuncs.com/20210119221437.png)
+<!--more--> 
 实例1
 ```
 输入：points = [[0,0],[2,2],[3,10],[5,2],[7,0]]
@@ -21,7 +21,7 @@ tags:
 ```
 解释：
 
-![](http://myblogoss.aimezhao.online/20210119200501.png)
+![](https://supers1.oss-cn-hangzhou.aliyuncs.com/20210119221456.png)
 
 ### 题解
 
@@ -35,16 +35,16 @@ tags:
 class Solution {
     public int minCostConnectPoints(int[][] points) {
         int len = points.length;
-        PriorityQueue<int[]> priorityQueue = new PriorityQueue<>(new Comparator<int[]>() {
+        PriorityQueue<Edge> priorityQueue = new PriorityQueue<>(new Comparator<Edge>() {
             @Override
-             public int compare(int[] o1, int[] o2) {
-                 return o1[2] - o2[2];
+             public int compare(Edge e1, Edge e2) {
+                 return e1.dis - e2.dis;
              }
         });
         for(int i = 0; i < len; i++) {
-            for(int j = i + 1; j < len; j++) {
-                int dis = Math.abs(points[j][1]-points[i][1]) + Math.abs(points[j][0]-points[i][0]);
-                priorityQueue.offer(new int[]{i, j, dis});
+            for(int j = i+1; j < len; j++) {
+                Edge e = new Edge(points, i, j);
+                priorityQueue.offer(e);
             }
         }
         // ---------此时已经拿到排序过的边权和其对应的两个点-------
@@ -52,13 +52,12 @@ class Solution {
         // 记录边的个数
         int count = 0;
         int res = 0;
-        while(!priorityQueue.isEmpty() && cout < len - 1) {
-            int[] cur = priorityQueue.poll();
-            int start = cur[0];
-            int end = cur[1];
-            int dis = cur[2];
-            if(myUnionFind(start) != myUnionFind(end)) {
-                // 合并两个连通分量
+        while(count < len - 1 && !priorityQueue.isEmpty()) {
+            Edge cur = priorityQueue.poll();
+            int start = cur.start;
+            int end = cur.end;
+            int dis = cur.dis;
+            if(myUnionFind.find(start) != myUnionFind.find(end)) {
                 myUnionFind.union(start, end);
                 count++;
                 res += dis;
@@ -66,6 +65,18 @@ class Solution {
         }
         return res;
 
+    }
+
+    class Edge {
+        int start;
+        int end;
+        int dis;
+
+        public Edge(int[][] points, int i, int j) {
+            start = i;
+            end = j;
+            dis = Math.abs(points[j][1]-points[i][1]) + Math.abs(points[j][0]-points[i][0]);
+        }
     }
 
     class UnionFind {
