@@ -31,6 +31,7 @@ tags:
    2. 若不属于一个连通图，则合并这两个连通分量
    3. 结束条件：直到一个连通分量包含所有的点
 
+#### 参考代码
 ```java
 class Solution {
     public int minCostConnectPoints(int[][] points) {
