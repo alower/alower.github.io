@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="google-site-verification" content="TZE0rZyIqLl10trYu3BWBWa1Vmz6HFwhb2OcNEK4u-s" />
+     <link rel="shortcut icon" href= /img/favicon.ico >
+    <title>
+        山猪的博客
+    </title>
+    <meta name="description" content= Welcome! >
+    <meta name="keywords" content=  >
+    
+<link rel="stylesheet" href="/libs/highlight/styles/monokai-sublime.css">
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body id="bodyx">
+    <div class="hd posts">
+    <a href="/index.html"><i class="fa fa-home
+ replay-btn" aria-hidden="true"></i></a>
+    <div class="post-title">
+        <p>
+            73.矩阵置零
+        </p>
+        <hr>
+    </div>
+    <div class="post-content">
+        <p>&#x7ED9;&#x5B9A;&#x4E00;&#x4E2A; m x n &#x7684;&#x77E9;&#x9635;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x4E3A; 0 &#xFF0C;&#x5219;&#x5C06;&#x5176;&#x6240;&#x5728;&#x884C;&#x548C;&#x5217;&#x7684;&#x6240;&#x6709;&#x5143;&#x7D20;&#x90FD;&#x8BBE;&#x4E3A; 0 &#x3002;&#x8BF7;&#x4F7F;&#x7528; &#x539F;&#x5730; &#x7B97;&#x6CD5;&#x3002;</p>
+<p>&#x8FDB;&#x9636;&#xFF1A; 1. &#x4E00;&#x4E2A;&#x76F4;&#x89C2;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x662F;&#x4F7F;&#x7528; O(mn) &#x7684;&#x989D;&#x5916;&#x7A7A;&#x95F4;&#xFF0C;&#x4F46;&#x8FD9;&#x5E76;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x597D;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x3002; 2. &#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x6539;&#x8FDB;&#x65B9;&#x6848;&#x662F;&#x4F7F;&#x7528; O(m + n) &#x7684;&#x989D;&#x5916;&#x7A7A;&#x95F4;&#xFF0C;&#x4F46;&#x8FD9;&#x4ECD;&#x7136;&#x4E0D;&#x662F;&#x6700;&#x597D;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x3002; 3. &#x4F60;&#x80FD;&#x60F3;&#x51FA;&#x4E00;&#x4E2A;&#x4EC5;&#x4F7F;&#x7528;&#x5E38;&#x91CF;&#x7A7A;&#x95F4;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x5417;&#xFF1F; <a id="more"></a> &#x793A;&#x4F8B; <img src="https://supers1.oss-cn-hangzhou.aliyuncs.com/20210321211350.png"> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x8F93;&#x5165;&#xFF1A;matrix = [[1,1,1],[1,0,1],[1,1,1]]</span><br><span class="line">&#x8F93;&#x51FA;&#xFF1A;[[1,0,1],[0,0,0],[1,0,1]]</span><br></pre></td></tr></table></figure> &#x63D0;&#x793A; 1. m == matrix.length 2. n == matrix[0].length 3. 1 &lt;= m, n &lt;= 200 4. -231 &lt;= matrix[i][j] &lt;= 231 - 1</p>
+<h3 id="&#x9898;&#x89E3;">&#x9898;&#x89E3;</h3>
+<ol type="1">
+<li>&#x91C7;&#x7528;O(mn)&#x7684;&#x989D;&#x5916;&#x7A7A;&#x95F4;&#x3002;&#x6700;&#x76F4;&#x89C2;</li>
+<li>&#x4F7F;&#x7528;&#x5E38;&#x91CF;&#x7A7A;&#x95F4;&#xFF0C;&#x989D;&#x5916;&#x4F7F;&#x7528;&#x7A7A;&#x95F4;&#x7684;&#x76EE;&#x7684;&#x662F;&#x4E3A;&#x4E86;&#x907F;&#x514D;&#x5148;&#x524D;&#x7F6E;0&#x7684;&#x64CD;&#x4F5C;&#x800C;&#x5F71;&#x54CD;&#x5230;&#x6700;&#x7EC8;&#x7684;&#x6B63;&#x786E;&#x7ED3;&#x679C;&#x3002;
+<ol type="1">
+<li>&#x53EF;&#x4EE5;&#x8003;&#x8651;&#x5148;&#x5224;&#x65AD;&#x7B2C;&#x4E00;&#x884C;&#x548C;&#x7B2C;&#x4E00;&#x5217;&#xFF0C;&#x82E5;&#x5B58;&#x5728;0&#xFF0C;&#x5219;&#x6807;&#x8BB0;</li>
+<li>&#x6B63;&#x5E38;&#x904D;&#x5386;&#x9664;&#x7B2C;&#x4E00;&#x884C;&#x7B2C;&#x4E00;&#x5217;&#x7684;&#x5176;&#x4ED6;&#x884C;&#x5217;&#xFF0C;&#x82E5;&#x5F53;&#x524D;&#x5143;&#x7D20;&#x4E3A;0&#xFF0C;&#x5C06;&#x5176;&#x5BF9;&#x5E94;&#x7684;&#x4E00;&#x5217;&#x548C;&#x4E00;&#x884C;&#x5168;&#x90E8;&#x7F6E;0</li>
+<li>&#x6700;&#x540E;&#x518D;&#x6839;&#x636E;&#x6807;&#x8BB0;&#x5C06;&#x7B2C;&#x4E00;&#x884C;&#x548C;&#x7B2C;&#x4E00;&#x5217;&#x7F6E;0</li>
+</ol></li>
+</ol>
+<h4 id="&#x53C2;&#x8003;&#x4EE3;&#x7801;">&#x53C2;&#x8003;&#x4EE3;&#x7801;</h4>
+<p>&#x7A7A;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#xFF1A;<code>O(mn)</code> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setZeroes</span><span class="params">(<span class="keyword">int</span>[][] matrix)</span> </span>{</span><br><span class="line">        <span class="keyword">int</span> row = matrix.length, col = matrix[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">boolean</span>[][] visited = <span class="keyword">new</span> <span class="keyword">boolean</span>[row][col];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++) {</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; col; j++) {</span><br><span class="line">                <span class="keyword">if</span>(matrix[i][j] == <span class="number">0</span>) visited[i][j] = <span class="keyword">true</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++) {</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; col; j++) {</span><br><span class="line">                <span class="keyword">if</span>(visited[i][j]) {</span><br><span class="line">                    changeVal(matrix, i, j);</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">changeVal</span><span class="params">(<span class="keyword">int</span>[][] matrix, <span class="keyword">int</span> row, <span class="keyword">int</span> col)</span> </span>{</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; matrix.length; i++) {</span><br><span class="line">            matrix[i][col] = <span class="number">0</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; matrix[row].length; i++) {</span><br><span class="line">            matrix[row][i] = <span class="number">0</span>;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure> &#x7A7A;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#xFF1A;<code>O(1)</code> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setZeroes</span><span class="params">(<span class="keyword">int</span>[][] matrix)</span> </span>{</span><br><span class="line">        <span class="keyword">int</span> row = matrix.length, col = matrix[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">boolean</span> flagRow = <span class="keyword">false</span>, flagCol = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++) {</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; col; j++) {</span><br><span class="line">                <span class="keyword">if</span>(matrix[i][j] == <span class="number">0</span>) {</span><br><span class="line">                    <span class="keyword">if</span>(i == <span class="number">0</span>) flagRow = <span class="keyword">true</span>;</span><br><span class="line">                    <span class="keyword">if</span>(j == <span class="number">0</span>) flagCol = <span class="keyword">true</span>;</span><br><span class="line">                    matrix[<span class="number">0</span>][j] = matrix[i][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; row; i++) {</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; col; j++) {</span><br><span class="line">                <span class="keyword">if</span>(matrix[i][<span class="number">0</span>] == <span class="number">0</span> || matrix[<span class="number">0</span>][j] == <span class="number">0</span>) matrix[i][j] = <span class="number">0</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(flagRow) {</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; col; i++) matrix[<span class="number">0</span>][i] = <span class="number">0</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(flagCol) {</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; row; i++) matrix[i][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+
+    </div>
+
+    
+        <hr class="fhr">
+        <div id="vcomments"></div>
+    
+</div>
+    <div class="footer" id="footer">
+    <p><h4>Copyright © 2020 | Author: Verdure | Theme By <a class="theme-author" target="_blank" rel="noopener" href="https://github.com/Xunzhuo/hexo-theme-coder" style="font-size:14px; color: #969696">Coder</a></h4>
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">Page Views: <span id="busuanzi_value_site_pv"></span></span>
+        <span class="post-meta-divider">|</span>
+        <span id="busuanzi_container_site_uv">Unique Visitors: <span id="busuanzi_value_site_uv"></span></span>
+    
+    <label class="el-switch el-switch-blue el-switch-sm" style="vertical-align: sub;">
+        <input type="checkbox" name="switch" id="update_style">
+        <span class="el-switch-style"></span>
+    </label>
+
+    <!--         <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
+    document.write(unescape("%3Cspan id='cnzz_stat_icon_1278548644'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D1278548644%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script> -->
+</p>
+</div>
+
+<input type="hidden" id="web_style" value="black">
+<input type="hidden" id="valine_appid" value="NOsswOncKgc8HOxqo9oxIWlX-gzGzoHsz">
+<input type="hidden" id="valine_appKey" value="z1FihjWEbS8uIfUQdmCtK7zz">
+
+<script src="/libs/jquery.min.js"></script>
+
+
+<script src="/libs/highlight/highlight.pack.js"></script>
+
+<script src='//cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+
+<script src="/js/js.js"></script>
+
+<style type="text/css">
+.v * {
+color: #698fca;
+}
+.v .vlist .vcard .vhead .vsys {
+color: #3a3e4a;
+}
+.v .vlist .vcard .vh .vmeta .vat {
+color: #638fd5;
+}
+.v .vlist .vcard .vhead .vnick {
+color: #6ba1ff;
+}
+.v a {
+color: #8696b1;
+}
+.v .vlist .vcard .vhead .vnick:hover {
+color: #669bfc;
+}
+</style>
+    <script type="text/javascript" color="173,174,173" opacity='1' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+</body>
+</html>

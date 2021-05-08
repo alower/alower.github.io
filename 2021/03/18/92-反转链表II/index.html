@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="google-site-verification" content="TZE0rZyIqLl10trYu3BWBWa1Vmz6HFwhb2OcNEK4u-s" />
+     <link rel="shortcut icon" href= /img/favicon.ico >
+    <title>
+        山猪的博客
+    </title>
+    <meta name="description" content= Welcome! >
+    <meta name="keywords" content=  >
+    
+<link rel="stylesheet" href="/libs/highlight/styles/monokai-sublime.css">
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body id="bodyx">
+    <div class="hd posts">
+    <a href="/index.html"><i class="fa fa-home
+ replay-btn" aria-hidden="true"></i></a>
+    <div class="post-title">
+        <p>
+            92.反转链表II
+        </p>
+        <hr>
+    </div>
+    <div class="post-content">
+        <h3 id="&#x9898;&#x76EE;">&#x9898;&#x76EE;</h3>
+<p>&#x7ED9;&#x4F60;&#x5355;&#x94FE;&#x8868;&#x7684;&#x5934;&#x8282;&#x70B9; head &#x548C;&#x4E24;&#x4E2A;&#x6574;&#x6570; left &#x548C; right &#xFF0C;&#x5176;&#x4E2D; left &lt;= right &#x3002;&#x8BF7;&#x4F60;&#x53CD;&#x8F6C;&#x4ECE;&#x4F4D;&#x7F6E; left &#x5230;&#x4F4D;&#x7F6E; right &#x7684;&#x94FE;&#x8868;&#x8282;&#x70B9;&#xFF0C;&#x8FD4;&#x56DE; &#x53CD;&#x8F6C;&#x540E;&#x7684;&#x94FE;&#x8868; &#x3002; <a id="more"></a></p>
+<p>&#x793A;&#x4F8B; <img src="https://supers1.oss-cn-hangzhou.aliyuncs.com/20210318101508.png"> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x8F93;&#x5165;&#xFF1A;head = [1,2,3,4,5], left = 2, right = 4</span><br><span class="line">&#x8F93;&#x51FA;&#xFF1A;[1,4,3,2,5]</span><br></pre></td></tr></table></figure> &#x63D0;&#x793A; 1. &#x94FE;&#x8868;&#x4E2D;&#x8282;&#x70B9;&#x6570;&#x76EE;&#x4E3A; n 2. 1 &lt;= n &lt;= 500 3. -500 &lt;= Node.val &lt;= 500 4. 1 &lt;= left &lt;= right &lt;= n</p>
+<h3 id="&#x9898;&#x89E3;">&#x9898;&#x89E3;</h3>
+<ol type="1">
+<li>&#x53CD;&#x8F6C;&#x533A;&#x95F4;[left, right]&#x5185;&#x7684;&#x94FE;&#x8868;&#x3002;&#x5219;&#x9700;&#x8981;&#x5B9A;&#x4F4D;&#x5230;left&#x7684;&#x524D;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x4EE5;&#x53CA;right&#x8282;&#x70B9;</li>
+<li>&#x5C06;&#x533A;&#x95F4;[left, rigth]&#x7684;&#x94FE;&#x8868;&#x65AD;&#x5F00;&#x540E;&#x53CD;&#x8F6C;</li>
+<li>&#x5C06;&#x53CD;&#x8F6C;&#x4E4B;&#x540E;&#x7684;&#x94FE;&#x8868;&#x63A5;&#x5165;&#x5230;&#x65AD;&#x5F00;&#x7684;&#x4F4D;&#x7F6E;</li>
+</ol>
+<h4 id="&#x53C2;&#x8003;&#x4EE3;&#x7801;">&#x53C2;&#x8003;&#x4EE3;&#x7801;</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode {</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() {}</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) { this.val = val; }</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }</span></span><br><span class="line"><span class="comment"> * }</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseBetween</span><span class="params">(ListNode head, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span> </span>{</span><br><span class="line">        ListNode dummy = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">        dummy.next = head;</span><br><span class="line">        <span class="comment">// left&#x7684;&#x524D;&#x4E00;&#x4E2A;&#x8282;&#x70B9;</span></span><br><span class="line">        ListNode pre = dummy;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(count &lt; left) {</span><br><span class="line">            pre = pre.next;</span><br><span class="line">            count++;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="comment">// right&#x8282;&#x70B9;</span></span><br><span class="line">        ListNode next = pre.next;</span><br><span class="line">        <span class="keyword">while</span>(count &lt; right) {</span><br><span class="line">            next = next.next;</span><br><span class="line">            count++;</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        ListNode leftNode = pre.next; <span class="comment">// left&#x8282;&#x70B9;</span></span><br><span class="line">        ListNode rightNode = next.next; <span class="comment">// right&#x8282;&#x70B9;&#x7684;&#x4E0B;&#x4E00;&#x4E2A;&#x8282;&#x70B9;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// &#x65AD;&#x5F00;&#x94FE;&#x8868;</span></span><br><span class="line">        pre.next = <span class="keyword">null</span>;</span><br><span class="line">        next.next = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// &#x53CD;&#x8F6C;&#x533A;&#x95F4;</span></span><br><span class="line">        reverse(leftNode);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// &#x8FDE;&#x63A5;&#x4E4B;&#x524D;&#x65AD;&#x5F00;&#x7684;&#x90E8;&#x5206;</span></span><br><span class="line">        pre.next = next;</span><br><span class="line">        leftNode.next = rightNode;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dummy.next;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reverse</span><span class="params">(ListNode head)</span> </span>{</span><br><span class="line">        ListNode pre = <span class="keyword">null</span>, cur = head;</span><br><span class="line">        <span class="keyword">while</span>(head != <span class="keyword">null</span>) {</span><br><span class="line">            ListNode next = cur.next;</span><br><span class="line">            cur.next = pre;</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = next;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+        <hr class="fhr">
+        <div id="vcomments"></div>
+    
+</div>
+    <div class="footer" id="footer">
+    <p><h4>Copyright © 2020 | Author: Verdure | Theme By <a class="theme-author" target="_blank" rel="noopener" href="https://github.com/Xunzhuo/hexo-theme-coder" style="font-size:14px; color: #969696">Coder</a></h4>
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">Page Views: <span id="busuanzi_value_site_pv"></span></span>
+        <span class="post-meta-divider">|</span>
+        <span id="busuanzi_container_site_uv">Unique Visitors: <span id="busuanzi_value_site_uv"></span></span>
+    
+    <label class="el-switch el-switch-blue el-switch-sm" style="vertical-align: sub;">
+        <input type="checkbox" name="switch" id="update_style">
+        <span class="el-switch-style"></span>
+    </label>
+
+    <!--         <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
+    document.write(unescape("%3Cspan id='cnzz_stat_icon_1278548644'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D1278548644%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script> -->
+</p>
+</div>
+
+<input type="hidden" id="web_style" value="black">
+<input type="hidden" id="valine_appid" value="NOsswOncKgc8HOxqo9oxIWlX-gzGzoHsz">
+<input type="hidden" id="valine_appKey" value="z1FihjWEbS8uIfUQdmCtK7zz">
+
+<script src="/libs/jquery.min.js"></script>
+
+
+<script src="/libs/highlight/highlight.pack.js"></script>
+
+<script src='//cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+
+<script src="/js/js.js"></script>
+
+<style type="text/css">
+.v * {
+color: #698fca;
+}
+.v .vlist .vcard .vhead .vsys {
+color: #3a3e4a;
+}
+.v .vlist .vcard .vh .vmeta .vat {
+color: #638fd5;
+}
+.v .vlist .vcard .vhead .vnick {
+color: #6ba1ff;
+}
+.v a {
+color: #8696b1;
+}
+.v .vlist .vcard .vhead .vnick:hover {
+color: #669bfc;
+}
+</style>
+    <script type="text/javascript" color="173,174,173" opacity='1' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+</body>
+</html>

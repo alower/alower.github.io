@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="google-site-verification" content="TZE0rZyIqLl10trYu3BWBWa1Vmz6HFwhb2OcNEK4u-s" />
+     <link rel="shortcut icon" href= /img/favicon.ico >
+    <title>
+        山猪的博客
+    </title>
+    <meta name="description" content= Welcome! >
+    <meta name="keywords" content=  >
+    
+<link rel="stylesheet" href="/libs/highlight/styles/monokai-sublime.css">
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body id="bodyx">
+    <div class="hd posts">
+    <a href="/index.html"><i class="fa fa-home
+ replay-btn" aria-hidden="true"></i></a>
+    <div class="post-title">
+        <p>
+            并查集
+        </p>
+        <hr>
+    </div>
+    <div class="post-content">
+        <p>&#x5E76;&#x67E5;&#x96C6;&#x662F;&#x4E00;&#x79CD;&#x6811;&#x5F62;&#x7ED3;&#x6784;&#xFF0C;&#x7528;&#x4E8E;&#x5904;&#x7406;&#x4E00;&#x4E9B;&#x4E0D;&#x4EA4;&#x96C6;&#x7684;&#x5408;&#x5E76;&#x53CA;&#x67E5;&#x8BE2;&#x95EE;&#x9898;&#x3002;&#x6709;&#x4E00;&#x4E2A;<strong>&#x8054;&#x5408;-&#x67E5;&#x627E;&#x7B97;&#x6CD5;</strong>&#x5B9A;&#x4E49;&#x4E86;&#x4E24;&#x4E2A;&#x7528;&#x4E8E;&#x6B64;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x7684;&#x64CD;&#x4F5C;&#x3002;<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%B9%B6%E6%9F%A5%E9%9B%86">&#x7EF4;&#x57FA;&#x767E;&#x79D1;</a> * <code>Find</code>&#xFF1A;&#x786E;&#x5B9A;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x5C5E;&#x4E8E;&#x54EA;&#x4E00;&#x4E2A;&#x5B50;&#x96C6; * <code>Union</code>&#xFF1A;&#x5C06;&#x4E24;&#x4E2A;&#x96C6;&#x5408;&#x5408;&#x5E76;&#x4E3A;&#x540C;&#x4E00;&#x4E2A;&#x96C6;&#x5408;</p>
+<p>&#x5E76;&#x67E5;&#x96C6;&#x68EE;&#x6797;&#xFF1A;&#x5C06;&#x6BCF;&#x4E00;&#x4E2A;&#x96C6;&#x5408;&#x4EE5;&#x6811;&#x8868;&#x793A;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;<strong>&#x5176;&#x6BCF;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x4FDD;&#x5B58;&#x7740;&#x5230;&#x4ED6;&#x7236;&#x8282;&#x70B9;&#x7684;&#x5F15;&#x7528;</strong>&#x3002; &#x5728;&#x5E76;&#x67E5;&#x96C6;&#x68EE;&#x6797;&#x4E2D;&#xFF0C;&#x6BCF;&#x4E2A;&#x96C6;&#x5408;&#x7684;&#x4EE3;&#x8868;&#x5373;&#x662F;&#x6839;&#x8282;&#x70B9;&#x3002; <code>Find</code>&#x6839;&#x636E;&#x5176;&#x7236;&#x8282;&#x70B9;&#x7684;&#x5F15;&#x7528;&#x5411;&#x6839;&#x8282;&#x70B9;&#x8FDB;&#x884C;&#x67E5;&#x627E;&#x76F4;&#x5230;&#x67E5;&#x627E;&#x5230;&#x6839;&#x8282;&#x70B9; <code>Union</code>&#x5C06;&#x4E24;&#x4E2A;&#x96C6;&#x5408;&#x5408;&#x5E76;&#x5230;&#x4E00;&#x8D77;&#xFF0C;&#x5373;&#x5C06;&#x4E00;&#x4E2A;&#x96C6;&#x5408;&#x7684;&#x6839;&#x8282;&#x70B9;A&#x8FDE;&#x63A5;&#x5230;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x96C6;&#x5408;&#x7684;&#x6839;&#x8282;&#x70B9;B&#x4E0A;&#xFF0C;&#x5373;&#xFF1A;A&#x7684;&#x7956;&#x5148;&#x662F;B <a id="more"></a> ### &#x5E76;&#x67E5;&#x96C6;&#x6A21;&#x677F; <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Union</span> </span>{</span><br><span class="line">    <span class="keyword">int</span>[] parent; <span class="comment">// &#x8BB0;&#x5F55;&#x67D0;&#x4E2A;&#x5143;&#x7D20;&#x7236;&#x8282;&#x70B9;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// &#x521D;&#x59CB;&#x5316;</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Union</span><span class="params">(<span class="keyword">int</span> n)</span> </span>{</span><br><span class="line">        parent = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) {</span><br><span class="line">            parent[i] = i;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * &#x5408;&#x5E76;</span></span><br><span class="line"><span class="comment">    * 1. &#x627E;&#x5230;a&#xFF0C;b&#x4E24;&#x4E2A;&#x96C6;&#x5408;&#x7684;&#x4EE3;&#x8868;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x6839;&#x8282;&#x70B9;</span></span><br><span class="line"><span class="comment">    * 2. &#x5408;&#x5E76;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BA9;rootB&#x4F5C;&#x4E3A;rootA&#x7684;&#x7236;&#x4EB2;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">union</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>{</span><br><span class="line">        <span class="keyword">int</span> rootA = find(a);</span><br><span class="line">        <span class="keyword">int</span> rootB = find(b);</span><br><span class="line">        parent[rootA] = rootB;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * &#x67E5;&#x627E;</span></span><br><span class="line"><span class="comment">    * &#x6BD4;&#x5982;&#xFF1A;&#x8981;&#x67E5;&#x627E;&#x5143;&#x7D20;a&#x6240;&#x5728;&#x96C6;&#x5408;&#x7684;&#x6839;&#x8282;&#x70B9;</span></span><br><span class="line"><span class="comment">    * &#x7956;&#x5148;&#x53EA;&#x77E5;&#x9053;&#x81EA;&#x5DF1;&#x7684;&#x7236;&#x8282;&#x70B9;&#x662F;&#x5176;&#x672C;&#x8EAB;</span></span><br><span class="line"><span class="comment">    * &#x90A3;&#x4E48;&#x5BF9;&#x4E8E;&#x5143;&#x7D20;a&#xFF0C;&#x5176;&#x95EE;&#x81EA;&#x5DF1;&#x662F;&#x5426;&#x662F;&#x7956;&#x5148;&#x8282;&#x70B9;&#xFF0C;&#x82E5;&#x4E0D;&#x662F;&#xFF0C;a&#x7684;&#x7236;&#x4EB2;&#x8282;&#x70B9;&#x7EE7;&#x7EED;&#x95EE;&#x81EA;&#x5DF1;&#xFF0C;&#x4E00;&#x5C42;&#x4E00;&#x5C42;&#x5411;&#x4E0A;</span></span><br><span class="line"><span class="comment">    * &#x8DEF;&#x5F84;&#x538B;&#x7F29;&#x5199;&#x6CD5;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> a)</span> </span>{</span><br><span class="line">        <span class="keyword">if</span>(a != parent[a]) {</span><br><span class="line">            <span class="keyword">return</span> find(parent[a]);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> parent[a]</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure> ### &#x67E5;&#x627E;---&#x8DEF;&#x5F84;&#x538B;&#x7F29; &#x67E5;&#x627E;&#x7684;&#x8FC7;&#x7A0B;&#x5B9E;&#x8D28;&#x5C31;&#x662F;&#x627E;&#x5230;&#x6811;&#x7684;&#x6839;&#x8282;&#x70B9; 1. &#x7B2C;&#x4E00;&#x79CD;&#x60C5;&#x51B5;&#x5BF9;&#x4E8E;&#x6BCF;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x90FD;&#x9700;&#x8981;&#x95EE;&#x95EE;&#x4ED6;&#x7684;&#x7236;&#x8282;&#x70B9;&#x662F;&#x4E0D;&#x662F;&#x6839;&#x8282;&#x70B9;&#xFF0C;&#x8FD9;&#x6837;&#x592A;&#x8017;&#x8D39;&#x65F6;&#x95F4;&#x4E86;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x4E00;&#x4E2A;&#x6570;&#x7684;&#x6839;&#x8282;&#x70B9;&#x5BF9;&#x4E8E;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x7684;&#x7236;&#x4EB2;&#x6CA1;&#x6709;&#x5173;&#x7CFB; 2. &#x7B2C;&#x4E8C;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x5373;&#xFF1A;&#x8DEF;&#x5F84;&#x538B;&#x7F29;&#xFF0C;&#x6211;&#x76F4;&#x63A5;&#x95EE;&#x6839;&#x8282;&#x70B9;&#x7684;&#x5B50;&#x8282;&#x70B9;&#xFF0C;&#x8FD9;&#x6837;&#x4E00;&#x6B21;&#x5C31;&#x95EE;&#x51FA;&#x6765;&#x4E86; <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> a)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span>(a != parent[a]) {</span><br><span class="line">        <span class="keyword">return</span> find(parent[a]);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> parent[a]</span><br><span class="line">}</span><br></pre></td></tr></table></figure> ### &#x5408;&#x5E76;---&#x6309;&#x79E9;&#x5408;&#x5E76; 1. &#x666E;&#x901A;&#x5408;&#x5E76;&#xFF1A;&#x5982;&#x4E0A;&#x9762;&#x7684;&#x6A21;&#x7248;&#x6240;&#x793A;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x627E;&#x5230;&#x4E24;&#x4E2A;&#x96C6;&#x5408;&#x7684;&#x4EE3;&#x8868;&#xFF0C;&#x8BA9;&#x540E;&#x8BA9;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x6210;&#x4E3A;&#x53E6;&#x4E00;&#x4E2A;&#x7684;&#x7236;&#x4EB2;&#xFF0C;&#x5373;&#x5B8C;&#x6210;&#x4E86;&#x5408;&#x5E76; 2. &#x6309;&#x79E9;&#x5408;&#x5E76;&#xFF1A;&#x666E;&#x901A;&#x5408;&#x5E76;&#x4E2D;&#x968F;&#x673A;&#x5C06;&#x4E00;&#x4E2A;&#x96C6;&#x5408;&#x5408;&#x5E76;&#x5230;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x96C6;&#x5408;&#x7684;&#x65B9;&#x6CD5;&#x5B58;&#x5728;&#x7740;&#x4E0D;&#x786E;&#x5B9A;&#x6027;&#x3002;&#x8BD5;&#x60F3;&#x5F53;&#x6211;&#x4EEC;&#x628A;&#x4E00;&#x4E2A;&#x5B50;&#x5B59;&#x591A;&#x7684;&#x96C6;&#x5408;&#x5408;&#x5E76;&#x5230;&#x4E00;&#x4E2A;&#x5B50;&#x5B59;&#x5C11;&#x7684;&#x96C6;&#x5408;&#x65F6;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x663E;&#x5F97;&#x6781;&#x5176;&#x4E0D;&#x65B9;&#x4FBF;&#x3002;<strong>&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5C3D;&#x53EF;&#x80FD;&#x7684;&#x5C06;&#x5C06;&#x70B9;&#x6570;&#x4E0E;&#x6DF1;&#x5EA6;&#x8F83;&#x5C0F;&#x7684;&#x6811;&#x5408;&#x5E76;&#x5230;&#x53E6;&#x5916;&#x4E00;&#x9897;&#x8F83;&#x5927;&#x7684;&#x96C6;&#x5408;&#x6811;&#x4E0A;</strong> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rank[]&#x6570;&#x7EC4;&#x7528;&#x6765;&#x8BB0;&#x5F55;&#x8BE5;&#x8282;&#x70B9;&#x5728;&#x6811;&#x4E2D;&#x7684;&#x9AD8;&#x5EA6;</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">union</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span> rooA = find(a);</span><br><span class="line">    <span class="keyword">int</span> rootB = find(b);</span><br><span class="line">    <span class="comment">// &#x5982;&#x679C;&#x6839;&#x8282;&#x70B9;&#x76F8;&#x540C;&#x5219;&#x4E0D;&#x505A;&#x4EFB;&#x4F55;&#x64CD;&#x4F5C;</span></span><br><span class="line">    <span class="keyword">if</span>(rooA == rootB) {</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        <span class="comment">// &#x79E9;&#x5C0F;&#x7684;&#x5408;&#x5E76;&#x5230;&#x79E9;&#x5927;&#x7684;&#x96C6;&#x5408;&#x4E0A;</span></span><br><span class="line">        <span class="keyword">if</span>(rank[rootA] &lt; rank[rootB]) {</span><br><span class="line">            parent[rootA] = rootB;</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            <span class="comment">// &#x79E9;&#x76F8;&#x540C;</span></span><br><span class="line">            <span class="keyword">if</span>(rank[rootA] == rank[rootB]) {</span><br><span class="line">                <span class="comment">// &#x4E24;&#x4E2A;&#x6811;&#x6DF1;&#x5EA6;&#x4E00;&#x6837;&#xFF0C;&#x5219;&#x79E9;&#x9700;&#x8981;+1</span></span><br><span class="line">                rank[rootA]++;</span><br><span class="line">            }</span><br><span class="line">            parent[rootB] = rootA;</span><br><span class="line"></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+
+    </div>
+
+    
+        <hr class="fhr">
+        <div id="vcomments"></div>
+    
+</div>
+    <div class="footer" id="footer">
+    <p><h4>Copyright © 2020 | Author: Verdure | Theme By <a class="theme-author" target="_blank" rel="noopener" href="https://github.com/Xunzhuo/hexo-theme-coder" style="font-size:14px; color: #969696">Coder</a></h4>
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">Page Views: <span id="busuanzi_value_site_pv"></span></span>
+        <span class="post-meta-divider">|</span>
+        <span id="busuanzi_container_site_uv">Unique Visitors: <span id="busuanzi_value_site_uv"></span></span>
+    
+    <label class="el-switch el-switch-blue el-switch-sm" style="vertical-align: sub;">
+        <input type="checkbox" name="switch" id="update_style">
+        <span class="el-switch-style"></span>
+    </label>
+
+    <!--         <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
+    document.write(unescape("%3Cspan id='cnzz_stat_icon_1278548644'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D1278548644%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script> -->
+</p>
+</div>
+
+<input type="hidden" id="web_style" value="black">
+<input type="hidden" id="valine_appid" value="NOsswOncKgc8HOxqo9oxIWlX-gzGzoHsz">
+<input type="hidden" id="valine_appKey" value="z1FihjWEbS8uIfUQdmCtK7zz">
+
+<script src="/libs/jquery.min.js"></script>
+
+
+<script src="/libs/highlight/highlight.pack.js"></script>
+
+<script src='//cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+
+<script src="/js/js.js"></script>
+
+<style type="text/css">
+.v * {
+color: #698fca;
+}
+.v .vlist .vcard .vhead .vsys {
+color: #3a3e4a;
+}
+.v .vlist .vcard .vh .vmeta .vat {
+color: #638fd5;
+}
+.v .vlist .vcard .vhead .vnick {
+color: #6ba1ff;
+}
+.v a {
+color: #8696b1;
+}
+.v .vlist .vcard .vhead .vnick:hover {
+color: #669bfc;
+}
+</style>
+    <script type="text/javascript" color="173,174,173" opacity='1' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+</body>
+</html>
